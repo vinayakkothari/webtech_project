@@ -32,7 +32,7 @@ if (count($_POST)) {
                 <meta charset="UTF-8" />
                 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <title>Smart Shopping | Login</title>
+                <title>Smart Shop | Login</title>
                 <link rel="stylesheet" href="assets/style.css" />
             </head>
             <body>
@@ -50,11 +50,12 @@ if (count($_POST)) {
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Smart Shopping | Login</title>
+        <title>Smart Shop | Login</title>
         <link rel="stylesheet" href="assets/style.css" />
     </head>
     <body>
-        <div class="container">
+        <div class="container-login">
+            <h3>Login</h3>
             <form method="POST">
                 <label for="name">Username:</label>
                 <input type="text" name="username" value="sam" /><br /><br />

@@ -17,7 +17,7 @@ try:
     conn = mysql.connector.connect(**db_config)
 
     if conn.is_connected():
-        print("Connected to MySQL database successfully!")
+        print("Connected to MySQL database")
 
     cursor = conn.cursor()
 
@@ -57,22 +57,22 @@ try:
         CREATE TABLE IF NOT EXISTS products (
             product_id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
+            description VARCHAR(255) NOT NULL,
             price DECIMAL(10, 2) NOT NULL,
-            image_filename VARCHAR(255),
             quantity_available INT NOT NULL
         )
     ''')
 
     sample_products = [
-        ("Mi LED TV 4A PRO", 1289.00, "tv.png", 10),
-        ("Bluetooth Headphones", 89.00, "headphones.png", 20),
-        ("Gaming Console", 299.00, "console.png", 5),
-        ("Leather Bag", 129.00, "bag.png", 15),
-        ("Running Shoes", 89.00, "shoes.png", 25)
+        ("Running Shoes V2", "Comfortable running shoes with good grip", 1289.00, 10),
+        ("Sneakers", "Stylish sneakers for casual wear", 89.00, 20),
+        ("Hiking Boots", "Durable boots designed for outdoor adventures", 299.00, 5),
+        ("Leather Bag", "Stylish and durable leather bag for everyday use", 129.00, 15),
+        ("Running Shoes", "Comfortable running shoes with good grip", 89.00, 25)
     ]
 
     product_insert_query = '''
-        INSERT INTO products (name, price, image_filename, quantity_available)
+        INSERT INTO products (name, description, price, quantity_available)
         VALUES (%s, %s, %s, %s)
     '''
     cursor.executemany(product_insert_query, sample_products)
