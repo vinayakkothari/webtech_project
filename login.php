@@ -1,17 +1,30 @@
 <?php
-const valid_username = "sam";
-const valid_password = "sam";
 
 session_start();
 
 if (count($_POST)) {
-    if ($_POST["username"] === valid_username && $_POST["password"] === valid_password) {
+    include "db.php";
+
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password = mysqli_real_escape_string($conn, hash("sha256", $_POST['password']));
+
+    $sql = "SELECT username, password, type FROM users WHERE username = '$username' AND password = '$password'";
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+
         echo "Valid credentials... Logging in";
 
         $_SESSION["logged_in"] = true;
-        $_SESSION["username"] = $_POST["username"];
+        $_SESSION["username"] = $row["username"];
+        $_SESSION["type"] = $row['type'];
 
-        header("Location: /");
+        if ($_SESSION["type"] === "buyer") {
+            header("Location: /");
+        } else {
+            header("Location: /seller.php");
+        }
     } else {
         echo '<!DOCTYPE html>
         <html lang="en">
@@ -19,7 +32,7 @@ if (count($_POST)) {
                 <meta charset="UTF-8" />
                 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <title>Cloth Shop | Login</title>
+                <title>Smart Shopping | Login</title>
                 <link rel="stylesheet" href="assets/style.css" />
             </head>
             <body>
@@ -37,7 +50,7 @@ if (count($_POST)) {
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Cloth Shop | Login</title>
+        <title>Smart Shopping | Login</title>
         <link rel="stylesheet" href="assets/style.css" />
     </head>
     <body>

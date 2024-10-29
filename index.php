@@ -1,9 +1,16 @@
 <?php
+
+// Debug mode
+// error_reporting(E_ALL);
+// ini_set('display_errors', 'On');
+
 session_start();
 
 if ($_SESSION["logged_in"] !== true) {
     header("Location: /login.php");
     exit;
+} elseif ($_SESSION["type"] === "seller") {
+    header("Location: /seller.php");
 }
 
 include "db.php";
@@ -68,9 +75,9 @@ $conn->close();
             <!-- Product Grid -->
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 text-center">
                 <?php
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo '
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo '
                             <div class="col">
                                 <div class="card border-0 h-100">
                                     <img src="./assets/images/img-' . $row["product_id"] . '.png" class="card-img-top" alt="' . htmlspecialchars($row["name"]) . '" />
@@ -82,11 +89,11 @@ $conn->close();
                                     </div>
                                 </div>
                             </div>';
-                    }
-                } else {
-                    echo "<p>No products found.</p>";
-                }
-                ?>
+    }
+} else {
+    echo "<p>No products found.</p>";
+}
+?>
             </div>
         </div>
     </section>

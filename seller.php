@@ -4,17 +4,22 @@ session_start();
 if ($_SESSION["logged_in"] !== true) {
     header("Location: /login.php");
     exit;
+} elseif ($_SESSION["type"] === "buyer") {
+    header("Location: /");
 }
 
 include "db.php";
 
 // Fetch order details from the database
-$sql = "SELECT o.order_id, o.customer_name, p.name AS product_name, o.order_quantity, 
+$sql = "SELECT o.order_id, o.customer_name, p.name AS product_name, o.order_quantity,
                p.price, (o.order_quantity * p.price) AS total
         FROM orders o
         JOIN products p ON o.product_id = p.product_id";
 
 $result = mysqli_query($conn, $sql);
+
+$conn->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -47,25 +52,25 @@ $result = mysqli_query($conn, $sql);
         </thead>
         <tbody>
         <?php
-        // Check if there are any results and display them
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo '<tr>';
-                echo '<td>' . htmlspecialchars($row['order_id']) . '</td>';
-                echo '<td>' . htmlspecialchars($row['customer_name']) . '</td>';
-                echo '<td>' . htmlspecialchars($row['product_name']) . '</td>';
-                echo '<td>' . htmlspecialchars($row['order_quantity']) . '</td>';
-                echo '<td>$' . htmlspecialchars(number_format($row['price'], 2)) . '</td>';
-                echo '<td>$' . htmlspecialchars(number_format($row['total'], 2)) . '</td>';
-                echo '</tr>';
-            }
-        } else {
-            echo '<tr><td colspan="6" class="text-center">No orders found</td></tr>';
-        }
-        ?>
+// Check if there are any results and display them
+if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        echo '<tr>';
+        echo '<td>' . htmlspecialchars($row['order_id']) . '</td>';
+        echo '<td>' . htmlspecialchars($row['customer_name']) . '</td>';
+        echo '<td>' . htmlspecialchars($row['product_name']) . '</td>';
+        echo '<td>' . htmlspecialchars($row['order_quantity']) . '</td>';
+        echo '<td>$' . htmlspecialchars(number_format($row['price'], 2)) . '</td>';
+        echo '<td>$' . htmlspecialchars(number_format($row['total'], 2)) . '</td>';
+        echo '</tr>';
+    }
+} else {
+    echo '<tr><td colspan="6" class="text-center">No orders found</td></tr>';
+}
+?>
         </tbody>
     </table>
-    <a href="index.php" class="btn btn-secondary">Back to Home</a>
+    <a href="/logout.php" class="btn btn-secondary">Logout</a>
 </div>
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -74,8 +79,3 @@ $result = mysqli_query($conn, $sql);
 </script>
 </body>
 </html>
-
-<?php
-// Close the database connection
-mysqli_close($conn);
-?>
