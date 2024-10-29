@@ -35,7 +35,7 @@ $conn->close();
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container d-flex justify-content-between">
             <a class="navbar-brand" href="#">
-                <img src="./images/logo.jpg" alt="Shopping-site-logo" class="d-inline-block align-text-top" />
+                <img src="assets/images/logo.jpg" alt="Shopping-site-logo" class="d-inline-block align-text-top" />
             </a>
             <form class="d-lg-flex w-25 position-relative d-none d-lg-block">
                 <input class="form-control rounded-pill pe-5" type="search" placeholder="Search any Product" aria-label="Search" />
@@ -73,7 +73,7 @@ $conn->close();
                         echo '
                             <div class="col">
                                 <div class="card border-0 h-100">
-                                    <img src="./images/shoes/shoe-' . $row["product_id"] . '.png" class="card-img-top" alt="' . htmlspecialchars($row["name"]) . '" />
+                                    <img src="./assets/images/img-' . $row["product_id"] . '.png" class="card-img-top" alt="' . htmlspecialchars($row["name"]) . '" />
                                     <div class="card-body">
                                         <h3 class="card-title mt-3">' . htmlspecialchars($row["name"]) . '</h3>
                                         <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
