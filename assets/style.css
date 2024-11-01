@@ -1,3 +1,11 @@
+.container-login-error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    gap: 1rem;
+}
+
 .container-login {
     display: flex;
     flex-direction: column;
