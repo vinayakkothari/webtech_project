@@ -30,16 +30,14 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Smart Shop</title>
     <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+            href="./assets/bootstrap.min.css"
             rel="stylesheet"
-            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-            crossorigin="anonymous"
     />
     <link
             href="./assets/style.css"
             rel="stylesheet"
     />
-    <script src="https://kit.fontawesome.com/3823abd3b7.js" crossorigin="anonymous"></script>
+    <script src="./assets/fontawesome.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <header>
@@ -86,7 +84,7 @@ if ($result->num_rows > 0) {
                           <h3 class="card-title mt-3 product-name">' . htmlspecialchars($row["name"]) . '</h3>
                           <p class="card-text">' . $row["description"] . '</p>
                           <h5>$' . htmlspecialchars($row["price"]) . '</h5>
-                          <button class="btn btn-primary">BUY NOW</button>
+                          <button data-id="' . htmlspecialchars($row["product_id"]) . '" class="btn btn-primary">BUY NOW</button>
                       </div>
                   </div>
               </div>';
@@ -115,7 +113,7 @@ if ($result->num_rows > 0) {
     <p class="text-center pt-3">&copy; Copyright 2024 ABCD</p>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="./assets/bootstrap.bundle.min.js"></script>
 <script src="./assets/index.js" defer></script>
 </body>
 </html>

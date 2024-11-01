@@ -2,7 +2,7 @@
 
 session_start();
 
-if (count($_POST)) {
+if ($_SERVER['REQUEST_METHOD'] === "POST" && count($_POST)) {
     include "db.php";
 
     $username = mysqli_real_escape_string($conn, $_POST['username']);

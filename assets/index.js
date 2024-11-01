@@ -1,5 +1,4 @@
 document.querySelector("#search").addEventListener("keyup", (e) => {
-    console.log(e.target.value);
     if (!e.target?.value) {
         document
             .querySelectorAll(".product-name")
@@ -26,3 +25,24 @@ document.querySelector("#search").addEventListener("keyup", (e) => {
                   )
         );
 });
+
+document.querySelectorAll("button[data-id]").forEach((btn) =>
+    btn.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        const product_id = e.target.dataset.id;
+
+        const qty = parseInt(prompt("Enter product quantity"));
+        if (isNaN(qty) || qty < 1) {
+            alert("Invalid quantity");
+            return;
+        }
+
+        await fetch(`./purchase.php?id=${product_id}&qty=${qty}`, {
+            method: "POST",
+        })
+            .then((resp) => resp.text())
+            .then((resp) => alert(resp))
+            .catch((err) => alert(`Error: ${err}`));
+    })
+);
